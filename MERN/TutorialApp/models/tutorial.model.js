@@ -6,6 +6,7 @@ module.exports = (mongoose) => {
       published: Boolean,
     },
     { timestamps: true }
+    //adds createdAt and updatedAt fields to the documents
   );
 
   schema.method("toJSON", function () {
