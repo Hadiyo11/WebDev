@@ -15,38 +15,55 @@ class AddTutorial extends Component {
       title: "",
       description: "",
       published: false,
+
       submitted: false,
     };
   }
 
   onChangeTitle(e) {
     this.setState({
-      title: e.targetvalue,
+      title: e.target.value,
+    });
+  }
+
+  onChangeDescription(e) {
+    this.setState({
+      description: e.target.value,
     });
   }
 
   saveTutorial() {
-    const { title, description } = title;
+    const { title, description } = this.state;
 
-    this.props.createTutorial(title, description).then((data) => {
-      this.setState({
-        id: data.id,
-        title: data.title,
-        description: data.description,
-        published: data.published,
-        submitted: true,
+    this.props
+      .createTutorial(title, description)
+      .then((data) => {
+        this.setState({
+          id: data.id,
+          title: data.title,
+          description: data.description,
+          published: data.published,
+
+          submitted: true,
+        });
+        console.log(data);
+      })
+      .catch((e) => {
+        console.log(e);
       });
-      console.log(data);
-    });
   }
+
   newTutorial() {
     this.setState({
       id: null,
       title: "",
       description: "",
       published: false,
+
+      submitted: false,
     });
   }
+
   render() {
     return (
       <div className="submit-form">
