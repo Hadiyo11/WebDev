@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://tutorial-app-3vx8.onrender.com/api",
+  baseURL: "http://localhost:8080/api",
   headers: {
     "Content-type": "application/json"
   }
