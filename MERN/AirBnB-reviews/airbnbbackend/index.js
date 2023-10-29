@@ -1,7 +1,8 @@
 import app from "./server.js";
 import mongodb from "mongodb";
 import dotenv from "dotenv";
-import ListingsDAO from "./dao/listingsDAO.js";
+import ListingsAndMoviesDAO from "./dao/listingsDAO.js";
+import ReviewsDAO from "./dao/reviewsDAO.js";
 async function main() {
   dotenv.config();
   const client = new mongodb.MongoClient(process.env.LISTINGSREVIEWS_DB_URI);
@@ -9,7 +10,8 @@ async function main() {
   try {
     // Connect to the MongoDB cluster
     await client.connect();
-    await ListingsDAO.injectDB(client);
+    await ListingsAndMoviesDAO.injectDB(client);
+    await ReviewsDAO.injectDB(client)
     app.listen(port, () => {
       console.log("server is running on port:" + port);
     });

@@ -1,14 +1,14 @@
-let listings;
+let listingsAndReviews;
 
-export default class ListingsDAO {
+export default class listingsAndReviewsDAO {
   static async injectDB(conn) {
-    if (listings) {
+    if (listingsAndReviews) {
       return;
     }
     try {
-      listings = await conn
+      listingsAndReviews = await conn
         .db(process.env.LISTINGSREVIEWS_NS)
-        .collection("listings");
+        .collection("listingsAndReviews");
     } catch (e) {
       console.error(`unable to connect in ListingsDAO: ${e}`);
     }
@@ -22,20 +22,20 @@ export default class ListingsDAO {
   } = {}) {
     let query;
     if (filters) {
-      if ("place" in filters) {
-        query = { $text: { $search: filters["place"] } };
+      if ("area" in filters) {
+        query = { $text: { $search: filters["area"] } };
       } else if ("rated" in filters) {
-        query = { rated: { $eq: filters["rated"] } };
+        query = { review_scores: { $eq: filters["review_scores"] } };
       }
     }
     let cursor;
     try {
-      cursor = await listings
+      cursor = await listingsAndReviews
         .find(query)
         .limit(listingsPerPage)
         .skip(listingsPerPage * page);
       const listingsList = await cursor.toArray();
-      const totalNumListings = await listings.countDocuments(query);
+      const totalNumListings = await listingsAndReviews.countDocuments(query);
       return { listingsList, totalNumListings };
     } catch (e) {
       console.error(`Unable to issue find command, ${e}`);

@@ -1,4 +1,4 @@
-import ListingsDAO from "../dao/listingsDAO.js";
+import ListingsAndReviewsDAO from "../dao/listingsDAO.js";
 
 export default class ListingsController {
   static async apiGetListings(req, res, next) {
@@ -8,20 +8,20 @@ export default class ListingsController {
     const page = req.query.page ? parseInt(req.query.page) : 0;
 
     let filters = {};
-    if (req.query.rated) {
-      filters.rated = req.query.rated;
-    } else if (req.query.place) {
-      filters.place = req.query.place;
+    if (req.query.review_scores) {
+      filters.review_scores = req.query.review_scores;
+    } else if (req.query.area) {
+      filters.area = req.query.area;
     }
 
-    const { listingsList, totalNumListings } = await ListingsDAO.getListings({
+    const { listingsList, totalNumListings } = await ListingsAndReviewsDAO.getListings({
       filters,
       page,
       listingsPerPage,
     });
 
     let response = {
-      listings: listingsList,
+      listingsAndReviews: listingsList,
       page: page,
       filters: filters,
       entries_per_page: listingsPerPage,
