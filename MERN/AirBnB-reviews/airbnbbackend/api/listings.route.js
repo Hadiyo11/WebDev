@@ -8,4 +8,6 @@ router
 .post(ReviewsController.apiPostReview)
 .put(ReviewsController.apiUpdateReview)
 .delete(ReviewsController.apiDeleteReview)
+router.route("/id/:id").get(ListingsController.appiGetListingById)
+router.route("/ratings").get(ListingsController.apiGetReviewScorebyIs)
 export default router;
