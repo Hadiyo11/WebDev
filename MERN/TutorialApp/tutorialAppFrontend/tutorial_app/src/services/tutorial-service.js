@@ -2,32 +2,41 @@ import http from "../http-common";
 
 class TutorialDataService {
   getAll() {
-    return http.get("https://tutorial-app-scac.onrender.com");
+    return http.get("https://tutorial-app-fhlu.onrender.com/api/tutorials");
   }
 
+  // get(id) {
+  //   return http.get(`http://localhost:8080/api/tutorials/${id}`);
+  // }
+
   get(id) {
-    return http.get(`https://tutorial-app-scac.onrender.com/${id}`);
+    return http.get(`https://tutorial-app-fhlu.onrender.com/api/tutorials/${id}`)
+     .catch(error => {
+      console.error("Error fetching tutorial:", error);
+      throw error;
+    });
   }
 
   create(data) {
-    return http.post("https://tutorial-app-scac.onrender.com/tutorials", data);
+    return http.post("https://tutorial-app-fhlu.onrender.com/api/tutorials", data);
   }
 
   update(id, data) {
-    return http.put(`https://tutorial-app-scac.onrender.com/${id}`, data);
+    return http.put(`https://tutorial-app-fhlu.onrender.com/api/tutorials/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`https://tutorial-app-scac.onrender.com/${id}`);
+    return http.delete(`https://tutorial-app-fhlu.onrender.com/api/tutorials/${id}`);
   }
 
   deleteAll() {
-    return http.delete(`https://tutorial-app-scac.onrender.com/`);
+    return http.delete(`https://tutorial-app-fhlu.onrender.com/api/tutorials`);
+  }
+
+  findByTitle(title) {
+    return http.get(`https://tutorial-app-fhlu.onrender.com/api/tutorials?title=${title}`);
+  }
 }
 
-findByTitle(title) {
-  return http.get(`https://tutorial-app-scac.onrender.com/?title=${title}`);
-}
-}
-
-export default new TutorialDataService();
+const tutorialDataService = new TutorialDataService();
+export default tutorialDataService;

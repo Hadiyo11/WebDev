@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://my-tutorial-app.onrender.com/tutorials",
+  baseURL: "https://tutorial-app-fhlu.onrender.com/api/tutorials",
   headers: {
     "Content-type": "application/json"
   }
